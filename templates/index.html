@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>SIRD传染病模型模拟</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        body {
+            background: #f6f6f6;
+            font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .main-flex {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch; /* 关键：让左右两侧等高 */
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            gap: 32px;
+        }
+        .container {
+            flex: 1 1 340px;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 32px 24px 32px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .chart-card {
+            flex: 2 1 600px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 24px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 关键：高度自适应左侧 */
+            height: 100%;
+        }
+        #chart {
+            width: 100%;
+            flex: 1 1 auto;
+            /* 让图表高度填满父容器 */
+        }
+        h2 {
+            text-align: center;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 24px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        label {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 4px;
+        }
+        input[type="number"] {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fafbfc;
+            transition: border 0.2s;
+        }
+        input[type="number"]:focus {
+            border: 1.5px solid #6c63ff;
+            outline: none;
+        }
+        button {
+            margin-top: 12px;
+            padding: 12px 0;
+            background: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(76, 110, 245, 0.08);
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #48c6ef 0%, #6c63ff 100%);
+        }
+        .chart-card {
+            flex: 2 1 600px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 24px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #chart {
+            width: 100%;
+            height: 400px;
+        }
+        @media (max-width: 900px) {
+            .main-flex {
+                flex-direction: column;
+                gap: 0;
+                max-width: 100vw;
+            }
+            .container, .chart-card {
+                max-width: 100vw;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 10px 4vw;
+            }
+            #chart {
+                height: 220px;
+            }
+        }
+        @media (max-width: 500px) {
+            .container, .chart-card {
+                padding: 6px 1vw;
+            }
+            #chart {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-flex">
+        <div class="container">
+            <h2>SIRD传染病模型模拟</h2>
+            <form id="sir-form">
+                <label>总人口数 N: <input type="number" name="N" value="5000"></label>
+                <label>初始感染人数 I0: <input type="number" name="I0" value="10"></label>
+                <label>初始移除人数 R0: <input type="number" name="R0" value="0"></label>
+                <label>感染率 β: <input type="number" step="0.01" name="beta" value="0.3"></label>
+                <label>恢复率 γ: <input type="number" step="0.01" name="gamma" value="0.1"></label>
+                <label>死亡率 μ: <input type="number" step="0.001" name="mu" value="0.01"></label>
+                <label>模拟天数 days: <input type="number" name="days" value="180"></label>
+                <button type="submit">开始模拟</button>
+            </form>
+        </div>
+        <div class="chart-card">
+            <div id="chart"></div>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
